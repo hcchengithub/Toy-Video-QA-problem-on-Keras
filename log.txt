@@ -1,0 +1,48 @@
+__main__ :> tf constant tf
+__main__ :: peforth.projectk.tf=v('tf') 
+
+__main__ :> video constant video
+__main__ :: peforth.projectk.video=v('video') 
+
+
+char cnn <text>
+__main__ :> {0} constant {0}
+__main__ :: peforth.projectk.{0}=v('{0}') 
+__main__ :> {0} tib. \ check the original
+py> {0} tib.         \ check the reference in peforth vm
+{0} tib.             \ check the peforth constant 
+</text> :> format(pop()) dictate
+
+
+
+# Working code using Keras 2.0.4
+
+import keras
+
+video = keras.layers.Input(shape=(None, 150, 150, 3))
+cnn = keras.applications.InceptionV3(weights='imagenet',
+                                     include_top=False,
+                                     pooling='avg')
+cnn.trainable = False
+encoded_frames = keras.layers.wrappers.TimeDistributed(cnn)(video)
+encoded_vid = keras.layers.LSTM(256)(encoded_frames)
+
+question = keras.layers.Input(shape=[100], dtype='int32')
+x = keras.layers.Embedding(10000, 256, mask_zero=True)(question)
+encoded_q = keras.layers.LSTM(128)(x)
+
+x = keras.layers.concatenate([encoded_vid, encoded_q])
+x = keras.layers.Dense(128, activation=keras.activations.relu)(x)
+outputs = keras.layers.Dense(1000)(x)
+
+model = keras.models.Model([video, question], outputs)
+model.compile(optimizer=keras.optimizers.Adam(),
+              loss=keras.losses.categorical_crossentropy)﻿
+
+import tensorflow as tf
+video = tf.keras.layers.Input(shape=(None,150,150,3))
+cnn = tf.keras.applications.InceptionV3(
+    weights='imagenet',
+    include_top=False,
+    pooling='avg')
+    
