@@ -6,5 +6,6 @@ cnn = tf.keras.applications.InceptionV3(
     weights='imagenet',
     include_top=False,
     pooling='avg')
+cnn.trainable = False
+encoded_frames = tf.keras.layers.TimeDistributed(cnn)(video)    
 peforth.ok('Examine> ', loc=locals(),cmd=':> [0] to locals cr')
-    

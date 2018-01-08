@@ -1,18 +1,18 @@
-__main__ :> tf constant tf
-__main__ :: peforth.projectk.tf=v('tf') 
 
-__main__ :> video constant video
-__main__ :: peforth.projectk.video=v('video') 
+    char tf <text> \ global variable
+    __main__ :> {0} constant {0}
+    __main__ :: peforth.projectk.{0}=v('{0}') 
+    </text> :> format(pop()) dictate
 
+    char video <text>
+    __main__ :> {0} constant {0}
+    __main__ :: peforth.projectk.{0}=v('{0}') 
+    </text> :> format(pop()) dictate
 
-char cnn <text>
-__main__ :> {0} constant {0}
-__main__ :: peforth.projectk.{0}=v('{0}') 
-__main__ :> {0} tib. \ check the original
-py> {0} tib.         \ check the reference in peforth vm
-{0} tib.             \ check the peforth constant 
-</text> :> format(pop()) dictate
-
+    char cnn <text>
+    __main__ :> {0} constant {0}
+    __main__ :: peforth.projectk.{0}=v('{0}') 
+    </text> :> format(pop()) dictate
 
 
 # Working code using Keras 2.0.4
@@ -45,4 +45,67 @@ cnn = tf.keras.applications.InceptionV3(
     weights='imagenet',
     include_top=False,
     pooling='avg')
+
+
+[ ] Debug "'NoneType' object has no attribute 'as_list'" 原因真的是跑出個
+    @ C:\Users\hcche\AppData\Local\Programs\Python\Python36\Lib\site-packages\tensorflow\python\keras\_impl\keras\layers\wrappers.py
+    under line 188 
+    
+    NoneType 出來了! 不知為何? 可能是原始程式有敲錯東西?
+
+    char child_input_shape <text> \ local variable
+    locals :> ['{0}'] constant {0}
+    __main__ :: peforth.projectk.{0}=v('{0}') 
+    </text> :> format(pop()) dictate
+    
+    char input_shape <text> \ local variable
+    locals :> ['{0}'] constant {0}
+    __main__ :: peforth.projectk.{0}=v('{0}') 
+    </text> :> format(pop()) dictate
+
+    char tensor_shape <text> \ local variable
+    locals :> ['{0}'] constant {0}
+    __main__ :: peforth.projectk.{0}=v('{0}') 
+    </text> :> format(pop()) dictate
+
+    char selfLayer <text> \ local variable
+    locals :> ['{0}'] constant {0}
+    __main__ :: peforth.projectk.{0}=v('{0}') 
+    </text> :> format(pop()) dictate
+    
+    
+    11> child_input_shape . cr
+    (?, 150, 150, 3)
+    11> selfLayer . cr
+    <tensorflow.python.keras._impl.keras.engine.training.Model object at 0x000001A1F0E1B5F8>
+    11> selfLayer :> _compute_output_shape . cr
+    <bound method Network._compute_output_shape of <tensorflow.python.keras._impl.keras.engine.training.Model object at 0x000001A1F0E1B5F8>>
+    11> selfLayer :> _compute_output_shape(child_input_shape) . cr
+    (?, 2048)
+    11> selfLayer :> _compute_output_shape(child_input_shape).as_list() . cr
+
+    Failed in </py> (compiling=False): 'NoneType' object has no attribute 'as_list'
+    Body:
+    push(pop()._compute_output_shape(child_input_shape).as_list())
+    11> selfLayer :> _compute_output_shape(child_input_shape) type . cr
+    <class 'tensorflow.python.framework.tensor_shape.TensorShape'>
+    11> child_input_shape type . cr
+    <class 'tensorflow.python.framework.tensor_shape.TensorShape'>
+    11> child_input_shape.as_list() . cr
+
+    Error! child_input_shape.as_list() unknown.
+
+    11> child_input_shape :> as_list() . cr
+    [None, 150, 150, 3]
+    11> child_input_shape . cr
+    (?, 150, 150, 3)
+    11> child_input_shape :> as_list() type . cr
+    <class 'list'>
+    11> selfLayer :> _compute_output_shape(child_input_shape) type . cr
+    <class 'NoneType'>
+    11> selfLayer :> _compute_output_shape(child_input_shape) . cr
+    None
+    11> selfLayer :> _compute_output_shape(child_input_shape) . cr
+    None
+    11>    
     
