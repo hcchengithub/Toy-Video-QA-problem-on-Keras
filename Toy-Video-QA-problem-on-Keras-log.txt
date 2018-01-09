@@ -1,3 +1,7 @@
+    char input_shape <text> \ local variable
+    locals :> ['{0}'] constant {0}
+    __main__ :: peforth.projectk.{0}=v('{0}') 
+    </text> :> format(pop()) dictate
 
     char tf <text> \ global variable
     __main__ :> {0} constant {0}
