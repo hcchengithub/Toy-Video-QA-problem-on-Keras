@@ -9,3 +9,4 @@ cnn = tf.keras.applications.InceptionV3(
 cnn.trainable = False
 encoded_frames = tf.keras.layers.TimeDistributed(cnn)(video)    
 peforth.ok('Examine> ', loc=locals(),cmd=':> [0] to locals cr')
+encoded_vid = tf.layers.LSTM(256)(encoded_frames)
