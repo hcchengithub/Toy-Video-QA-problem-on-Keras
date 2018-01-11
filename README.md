@@ -3,7 +3,7 @@
 ## My practice code (jupyter notebook): https://github.com/hcchengithub/Toy-Video-QA-problem-on-Keras
 
 The code shown on the YouTube video did not work. Now I have fixed all problems with it. But . . . don't know how to play yet. 
-Please give me a tiny hint throught opening an issue, thank you very very much! 
+Please give me a tiny hint throught opening an issue (click the Issues button above), thank you very very much! 
 
 ## How to run 
 
@@ -19,7 +19,7 @@ If you have no idea what's a 'jupyter notebook' then it's time to install, googl
 #### Method 2, run .py 
 This command line:
 
-    jupyter nbconvert \"experimenting the source code.ipynb\"  --to script
+    jupyter nbconvert "experimenting the source code.ipynb"  --to script
 
 converts the jupyter notebook into a .py normal python script file so you can run it then.
 
