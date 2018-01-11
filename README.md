@@ -2,7 +2,7 @@
 ## Toy Video QA problem on Keras
 ## My practice code (jupyter notebook): https://github.com/hcchengithub/Toy-Video-QA-problem-on-Keras
 
-The code shown on the YouTube video does not work. I have fixed all problems but now . . . don't know how to play yet. 
+The code shown on the YouTube video did not work. Now I have fixed all problems with it. But . . . don't know how to play yet. 
 Please give me a tiny hint throught opening an issue, thank you very very much! 
 
 ## How to run 
